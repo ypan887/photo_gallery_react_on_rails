@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/carrierwaveuploader/carrierwave.git
+  revision: 44cfb7c01c22e0168d362001a7bb3c528c805315
+  specs:
+    carrierwave (0.11.0)
+      activemodel (>= 4.0.0)
+      activesupport (>= 4.0.0)
+      mime-types (>= 1.16)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -39,7 +48,7 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (7.1.1)
-    autoprefixer-rails (6.3.7)
+    autoprefixer-rails (6.4.0.1)
       execjs
     builder (3.2.2)
     byebug (9.0.5)
@@ -55,13 +64,33 @@ GEM
     connection_pool (2.2.0)
     debug_inspector (0.0.2)
     erubis (2.7.0)
+    excon (0.51.0)
     execjs (2.7.0)
     ffi (1.9.14)
+    figaro (1.1.1)
+      thor (~> 0.14)
+    fog-aws (0.11.0)
+      fog-core (~> 1.38)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
+    fog-core (1.42.0)
+      builder
+      excon (~> 0.49)
+      formatador (~> 0.2)
+    fog-json (1.0.2)
+      fog-core (~> 1.0)
+      multi_json (~> 1.10)
+    fog-xml (0.1.2)
+      fog-core
+      nokogiri (~> 1.5, >= 1.5.11)
     foreman (0.82.0)
       thor (~> 0.19.1)
+    formatador (0.2.5)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
+    ipaddress (0.8.3)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -87,6 +116,7 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    pg (0.18.4)
     pkg-config (1.1.7)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -152,7 +182,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.11)
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
@@ -178,10 +207,14 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   byebug
+  carrierwave!
   coffee-rails (~> 4.2)
+  figaro
+  fog-aws
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  pg
   pry-remote
   puma (~> 3.0)
   rails (~> 5.0.0)
@@ -189,7 +222,6 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)
-  sqlite3
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
