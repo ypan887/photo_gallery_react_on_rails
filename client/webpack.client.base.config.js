@@ -22,6 +22,7 @@ module.exports = {
     // webpack.rails.config
     app: [
       './app/bundles/HelloWorld/startup/clientRegistration',
+      './app/bundles/PhotoGallery/startup/clientRegistration'
     ],
   },
   resolve: {
@@ -58,8 +59,14 @@ module.exports = {
 
       // Not all apps require jQuery. Many Rails apps do, such as those using TurboLinks or
       // bootstrap js
-      { test: require.resolve('jquery'), loader: 'expose?jQuery' },
-      { test: require.resolve('jquery'), loader: 'expose?$' },
+      {
+        test: require.resolve('jquery'),
+        loader: 'expose?jQuery'
+      },
+      {
+        test: require.resolve('jquery'),
+        loader: 'expose?$'
+      },
     ],
   },
 };

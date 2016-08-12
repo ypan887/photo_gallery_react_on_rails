@@ -1,2 +1,3 @@
-<h1>PhotoGallery#index</h1>
-<p>Find me in app/views/photo_gallery/index.html.erb</p>
+<%= react_component("PhotoGalleryApp",
+                     props: @images_props,
+                     prerender: false) %>
