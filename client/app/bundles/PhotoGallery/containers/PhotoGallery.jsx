@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import FontAwesome from 'react-fontawesome';
+import ControllerUnitWidget from '../components/ControllerUnitWidget';
+import ImageFigureWidget from '../components/ImageFigureWidget';
+import UploadComponent from '../components/UploadComponent';
 
 function getRangeRandom(low, high) {
   return Math.ceil(Math.random() * (high - low) + low);
@@ -8,92 +10,6 @@ function getRangeRandom(low, high) {
 
 function getRotateRandom() {
   return ((Math.random() > 0.5 ? '' : '-') + Math.ceil(Math.random() * 30));
-}
-
-class ImgFigure extends React.Component {
-  handleClick(e) {
-    if (this.props.arrange.isCenter) {
-      this.props.inverse();
-    } else {
-      this.props.center();
-    }
-
-    e.stopPropagation();
-    e.preventDefault();
-  }
-
-  render() {
-    let styleObj = {};
-    let imgFigureClassName = 'img-figure';
-
-    if (this.props.arrange.pos) {
-      styleObj = this.props.arrange.pos;
-    }
-
-    if (this.props.arrange.rotate) {
-      (['Moz', 'ms', 'Webkit', '']).forEach((value) => {
-        styleObj[value + 'Transform'] = 'rotate(' + this.props.arrange.rotate + 'deg)';
-      });
-    }
-
-    if (this.props.arrange.isInverse) {
-      imgFigureClassName += ' is-inverse';
-    }
-
-    if (this.props.arrange.isCenter) {
-      styleObj.zIndex = 11;
-    }
-
-    return (
-      <figure className={ imgFigureClassName } style={ styleObj } onClick={ this.handleClick.bind(this) }>
-        <img src={ this.props.data.url } alt={ this.props.data.title } />
-        <figcaption>
-          <h2 className="img-title">{ this.props.data.title }</h2>
-          <div className='img-back' onClick={ this.handleClick.bind(this) }>
-            <p>
-              { this.props.data.desc }
-            </p>
-          </div>
-        </figcaption>
-      </figure>
-      );
-  }
-}
-
-class ControllerUnit extends React.Component {
-  handleClick(e) {
-    if (this.props.arrange.isCenter) {
-      this.props.inverse();
-    } else {
-      this.props.center();
-    }
-
-    e.preventDefault;
-    e.stopPropagation;
-  }
-
-  render() {
-    let controllerUnitClassName = 'controller-unit';
-
-    if (this.props.arrange.isCenter) {
-      controllerUnitClassName += ' is-center';
-
-      if (this.props.arrange.isInverse) {
-        controllerUnitClassName += ' is-inverse';
-      }
-    }
-    return (
-      <span className={ controllerUnitClassName } onClick={ this.handleClick.bind(this) }></span>
-      );
-  }
-}
-
-class UploadForm extends React.Component {
-  render() {
-    return (
-      <FontAwesome className='button-icon' name='upload' size='2x' />
-      );
-  }
 }
 
 // Simple example of a React "smart" component
@@ -262,10 +178,10 @@ export default class PhotoGallery extends React.Component {
         };
       }
 
-      imgFigures.push(<ImgFigure data={ value } key={ index } arrange={ this.state.imgsArrangeArr[index] } ref={ 'imgFigure' + index } inverse={ this.inverse(index) } center={ this.center(index) }
+      imgFigures.push(<ImageFigureWidget data={ value } key={ index } arrange={ this.state.imgsArrangeArr[index] } ref={ 'imgFigure' + index } inverse={ this.inverse(index) } center={ this.center(index) }
                       />);
 
-      controllerUnits.push(<ControllerUnit key={ index } arrange={ this.state.imgsArrangeArr[index] } inverse={ this.inverse(index) } center={ this.center(index) } />);
+      controllerUnits.push(<ControllerUnitWidget key={ index } arrange={ this.state.imgsArrangeArr[index] } inverse={ this.inverse(index) } center={ this.center(index) } />);
     });
 
     return (
@@ -274,7 +190,7 @@ export default class PhotoGallery extends React.Component {
           { imgFigures }
         </section>
         <nav className='upload-button'>
-          <UploadForm />
+          <UploadComponent />
         </nav>
         <nav className="controller-nav">
           { controllerUnits }
