@@ -54,3 +54,4 @@ gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
 gem "fog-aws"
 gem 'pg'
 gem 'figaro'
+gem "font-awesome-rails"

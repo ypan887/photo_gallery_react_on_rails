@@ -1,3 +1,4 @@
+@import "font-awesome";
 @font-face {
   font-family: "icons-turn-arrow";
   src: font-url("icons/turn-arrow.eot") format("embedded-opentype"),
@@ -101,6 +102,36 @@ html, body {
 
 }
 /* image -- end */
+
+/* upload button -- start */
+.upload-button {
+  position: absolute;
+  left: 0;
+  bottom: 60px;
+  z-index: 101;
+
+  width: 100%;
+  text-align: center;
+
+  @at-root {
+    .button-icon {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+
+      color: #797e9c;
+
+      text-align: center;
+      vertical-align: middle;
+
+      cursor: pointer;
+
+      border-radius: 50%;
+    }
+  }
+}
+
+/* upload button -- end */
 
 /* controller -- start */
 .controller-nav {

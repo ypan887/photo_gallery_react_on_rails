@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import FontAwesome from 'react-fontawesome';
 
 function getRangeRandom(low, high) {
   return Math.ceil(Math.random() * (high - low) + low);
@@ -87,6 +88,13 @@ class ControllerUnit extends React.Component {
   }
 }
 
+class UploadForm extends React.Component {
+  render() {
+    return (
+      <FontAwesome className='button-icon' name='upload' size='2x' />
+      );
+  }
+}
 
 // Simple example of a React "smart" component
 export default class PhotoGallery extends React.Component {
@@ -262,9 +270,12 @@ export default class PhotoGallery extends React.Component {
 
     return (
       <section className="index stage" ref={ (node) => this.stage = node }>
-        <section className="img-sec">
+        <section className='img-sec'>
           { imgFigures }
         </section>
+        <nav className='upload-button'>
+          <UploadForm />
+        </nav>
         <nav className="controller-nav">
           { controllerUnits }
         </nav>
