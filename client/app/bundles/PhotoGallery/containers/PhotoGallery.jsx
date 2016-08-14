@@ -189,12 +189,12 @@ export default class PhotoGallery extends React.Component {
         <section className='img-sec'>
           { imgFigures }
         </section>
-        <nav className='upload-button'>
+        <div>
           <UploadComponent />
-        </nav>
-        <nav className="controller-nav">
+        </div>
+        <div className="controller-nav">
           { controllerUnits }
-        </nav>
+        </div>
       </section>
       );
   }

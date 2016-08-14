@@ -66,7 +66,7 @@ html, body {
       text-align: center;
 
       .img-title {
-        margin: 20px 0 0 0;
+        margin: 20px;
 
         color: #a7a0a2;
         font-size: 16px;
@@ -103,35 +103,42 @@ html, body {
 }
 /* image -- end */
 
-/* upload button -- start */
-.upload-button {
+/* upload component -- start */
+#upload-button {
   position: absolute;
   left: 0;
-  bottom: 60px;
+  bottom: 80px;
   z-index: 101;
 
   width: 100%;
   text-align: center;
 
-  @at-root {
-    .button-icon {
-      display: inline-block;
-      width: 50px;
-      height: 50px;
-
-      color: #797e9c;
-
-      text-align: center;
-      vertical-align: middle;
-
-      cursor: pointer;
-
-      border-radius: 50%;
-    }
-  }
+  font-size: 2.5 em;
 }
 
-/* upload button -- end */
+#close-button {
+  margin: 0px 20px 20px 20px;
+  float: right;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  padding: 2rem;
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 30px;
+
+  .modal-content {
+    background-color: white;
+    max-height: 80%;
+    height: 80%;
+  }
+}
+/* upload component -- end */
 
 /* controller -- start */
 .controller-nav {
@@ -188,3 +195,9 @@ html, body {
   }
 }
 /* controller -- end */
+
+/* Others -- start */
+btn.submit {
+  height: 3rem;
+}
+/* Others -- end */
