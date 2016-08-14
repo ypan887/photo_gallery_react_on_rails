@@ -51,6 +51,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "react_on_rails", "~> 5"
 gem "autoprefixer-rails"
 gem 'carrierwave', github: 'carrierwaveuploader/carrierwave'
+gem 'mini_magick'
 gem "fog-aws"
 gem 'pg'
 gem 'figaro'

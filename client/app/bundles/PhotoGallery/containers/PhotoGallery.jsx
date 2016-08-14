@@ -15,8 +15,8 @@ function getRotateRandom() {
 // Simple example of a React "smart" component
 export default class PhotoGallery extends React.Component {
 
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.Constant = {
       centerPos: {
         left: 0,
@@ -190,7 +190,7 @@ export default class PhotoGallery extends React.Component {
           { imgFigures }
         </section>
         <div>
-          <UploadComponent />
+          <UploadComponent csrfToken={ this.props.csrfToken } />
         </div>
         <div className="controller-nav">
           { controllerUnits }
