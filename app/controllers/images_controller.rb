@@ -5,7 +5,6 @@ class ImagesController < ApplicationController
   def create
     image = Image.new(image_param)
     image.save!
-    console
     redirect_to root_path
   end
 
