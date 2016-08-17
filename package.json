@@ -2,8 +2,8 @@
   "name": "react-webpack-rails-tutorial",
   "version": "0.0.1",
   "engines": {
-    "node": "5.10.0",
-    "npm": "3.5.0"
+    "node": "6.1.1",
+    "npm": "3.10.5"
   },
   "scripts": {
     "postinstall": "cd client && npm install",
