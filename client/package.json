@@ -36,7 +36,8 @@
     "react-addons-css-transition-group": "^15.3.0",
     "react-dom": "^0.14.8 || ^15.0.0",
     "react-on-rails": "5.2.0",
-    "webpack": "^1.12.14"
+    "webpack": "^1.12.14",
+    "react-fontawesome": "^1.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.0",
@@ -44,7 +45,6 @@
     "eslint-loader": "^1.0.0",
     "eslint-plugin-react": "^5.0.0",
     "eslint-plugin-standard": "^2.0.0",
-    "react-fontawesome": "^1.1.0",
     "sass-lint": "^1.8.2"
   }
 }
