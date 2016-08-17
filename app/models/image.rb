@@ -10,6 +10,6 @@ class Image < ApplicationRecord
   end
 
   def self.format_images(images)
-    JSON.parse(images.to_json).map{|img| img["url"] = img["image"]["thumb"]}
+    JSON.parse(images.to_json).map{|img| img.merge!(img["image"]["thumb"]); img.delete("image");img}
   end
 end
