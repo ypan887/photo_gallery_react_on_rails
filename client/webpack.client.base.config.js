@@ -15,28 +15,28 @@ module.exports = {
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
       'babel-polyfill',
-      'jquery',
+      'jquery'
     ],
 
     // This will contain the app entry points defined by webpack.hot.config and
     // webpack.rails.config
     app: [
       './app/bundles/PhotoGallery/startup/clientRegistration'
-    ],
+    ]
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
     alias: {
       lib: path.join(process.cwd(), 'app', 'lib'),
       react: path.resolve('./node_modules/react'),
-      'react-dom': path.resolve('./node_modules/react-dom'),
-    },
+      'react-dom': path.resolve('./node_modules/react-dom')
+    }
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(nodeEnv),
-      },
+        NODE_ENV: JSON.stringify(nodeEnv)
+      }
     }),
 
     // https://webpack.github.io/docs/list-of-plugins.html#2-explicit-vendor-chunk
@@ -50,8 +50,8 @@ module.exports = {
 
       // Passing Infinity just creates the commons chunk, but moves no modules into it.
       // In other words, we only put what's in the vendor entry definition in vendor-bundle.js
-      minChunks: Infinity,
-    }),
+      minChunks: Infinity
+    })
   ],
   module: {
     loaders: [
@@ -65,7 +65,7 @@ module.exports = {
       {
         test: require.resolve('jquery'),
         loader: 'expose?$'
-      },
-    ],
-  },
+      }
+    ]
+  }
 };
