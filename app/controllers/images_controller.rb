@@ -11,9 +11,12 @@ class ImagesController < ApplicationController
   end
 
   def create
-    image = Image.new(image_param)
-    image.save!
-    redirect_to root_path
+    @image = Image.new(image_param)
+    if @image.save!
+      respond_to do |format|
+        format.json{ render :json => @image }
+      end
+    end
   end
 
 private

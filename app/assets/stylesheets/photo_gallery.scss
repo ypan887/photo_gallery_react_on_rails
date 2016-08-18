@@ -137,6 +137,21 @@ html, body {
     max-height: 80%;
     height: 80%;
   }
+
+  @at-root {
+    .preview-img {
+      text-align: center;
+      height: auto;
+      width: auto;
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+      }
+    }
+  }
 }
 /* upload component -- end */
 
