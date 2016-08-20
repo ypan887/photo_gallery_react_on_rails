@@ -16,7 +16,8 @@ export default class UploadComponent extends React.Component {
       image: '',
       imagePreviewUrl: '',
       croppedData: '',
-      complete: false
+      complete: false,
+      progress: 0
     }
   }
 
@@ -53,16 +54,6 @@ export default class UploadComponent extends React.Component {
     this.refs.modal.hide();
   }
 
-  // toggleDisplay(complete) {
-  //   if (complete) {
-  //     return ({
-  //       display: none
-  //     });
-  //   } else {
-  //     return ({});
-  //   }
-  // }
-
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -89,6 +80,16 @@ export default class UploadComponent extends React.Component {
         console.log('upload error');
       }
     };
+
+    xhr.upload.onprogress = function(event) {
+      if (event.lengthComputable) {
+        let progressComplete = (event.loaded / event.total * 100 | 0);
+        self.setState({
+          progress: progressComplete
+        })
+      }
+    };
+
     xhr.send(formData);
   }
 
@@ -146,6 +147,7 @@ export default class UploadComponent extends React.Component {
                 </div>
               </div>
             </form>
+            <progress id="uploadprogress" min="0" max="100" value={ this.state.progress } />
             <div className='preview-img col s12'>
               <CropComponent _cropImage={ this._cropImage.bind(this) } img={ this.state.imagePreviewUrl } styleObj={ styleObj } />
             </div>
