@@ -34,10 +34,11 @@
     "lodash": "^4.7.0",
     "react": "^0.14.8 || ^15.0.0",
     "react-addons-css-transition-group": "^15.3.0",
+    "react-cropper": "^0.8.0",
     "react-dom": "^0.14.8 || ^15.0.0",
+    "react-fontawesome": "^1.1.0",
     "react-on-rails": "5.2.0",
-    "webpack": "^1.12.14",
-    "react-fontawesome": "^1.1.0"
+    "webpack": "^1.12.14"
   },
   "devDependencies": {
     "babel-eslint": "^6.0.0",

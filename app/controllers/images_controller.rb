@@ -12,6 +12,8 @@ class ImagesController < ApplicationController
 
   def create
     @image = Image.new(image_param)
+    p cropped_param[:croppedData]
+    @image.set_crop_data(JSON.parse(cropped_param[:croppedData]))
     if @image.save!
       respond_to do |format|
         format.json{ render :json => @image }
@@ -23,5 +25,9 @@ private
 
   def image_param
     params.require(:image).permit(:title, :desc, :image)
+  end
+
+  def cropped_param
+    params.require(:image).permit(:croppedData)
   end
 end

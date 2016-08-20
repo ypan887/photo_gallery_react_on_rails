@@ -1,6 +1,11 @@
 import React from 'react';
 import Modal from 'boron/DropModal'
 import FontAwesome from 'react-fontawesome';
+import CropComponent from '../components/CropComponent';
+
+let modalStyle = {
+  width: '80%'
+};
 
 export default class UploadComponent extends React.Component {
   constructor() {
@@ -10,7 +15,8 @@ export default class UploadComponent extends React.Component {
       desc: '',
       imageName: '',
       image: '',
-      imagePreviewUrl: ''
+      imagePreviewUrl: '',
+      croppedData: ''
     }
   }
 
@@ -59,6 +65,9 @@ export default class UploadComponent extends React.Component {
     formData.append('image[desc]', this.state.desc);
     formData.append('image[image]', this.state.image);
     formData.append('authenticity_token', this.props.csrfToken)
+    if (this.state.croppedData) {
+      formData.append('image[croppedData]', JSON.stringify(this.state.croppedData))
+    }
     xhr.open('POST', '/images');
     xhr.onload = function() {
       if (xhr.status === 200) {
@@ -70,27 +79,30 @@ export default class UploadComponent extends React.Component {
     xhr.send(formData);
   }
 
-  callback(event) {
-    console.log(event);
+  _cropImage(croppedData) {
+    this.setState({
+      croppedData: croppedData
+    })
   }
 
   render() {
-    const validForm = this.state.title && this.state.desc && this.state.imageName;
-    let imagePreviewUrl = this.state.imagePreviewUrl;
-    let imagePreview = null;
-    if (imagePreviewUrl) {
-      imagePreview = (<img src={ imagePreviewUrl } alt={ this.state.title } />);
+    const validForm = this.state.title && this.state.desc && this.state.imageName && this.state.croppedData;
+    let styleObj = {};
+    if (this.state.imagePreviewUrl) {
+      styleObj = {
+        height: 400,
+        width: '100%'
+      };
     }
 
     return (
       <div>
         <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' id='upload-button' />
-        <Modal ref="modal" keyboard={ this.callback }>
+        <Modal ref="modal" modalStyle={ modalStyle }>
           <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
           <div className="container">
             <form className="col s12" method="post" acceptCharset="UTF-8" encType='multipart/form-data' data-remote="true" onSubmit={ this.handleSubmit.bind(this) }>
               <div className="row">
-                <input type='hidden' name='authenticity_token' value={ this.props.csrfToken } />
                 <div className="input-field col s12">
                   <input placeholder="Title" name="image[title]" type="text" className="validate" value={ this.state.title } onChange={ this.handleChange.bind(this) } />
                   <label htmlFor="first_name">Title</label>
@@ -109,12 +121,12 @@ export default class UploadComponent extends React.Component {
                   </div>
                 </div>
                 <div className="col s12">
-                  <button type='submit' className='submit btn waves-effect waves-light' name="action" disabled={ !validForm }>Upload</button>
+                  <button type='submit' className='submit btn waves-effect waves-light' name="action" title="Double click to crop image before Upload" disabled={ !validForm }>Upload</button>
                 </div>
               </div>
             </form>
             <div className='preview-img col s12'>
-              { imagePreview }
+              <CropComponent _cropImage={ this._cropImage.bind(this) } img={ this.state.imagePreviewUrl } styleObj={ styleObj } />
             </div>
           </div>
         </Modal>
