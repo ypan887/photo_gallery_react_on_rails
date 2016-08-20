@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import CropComponent from '../components/CropComponent';
 
 let modalStyle = {
-  width: '80%'
+  maxWidth: '80%'
 };
 
 export default class UploadComponent extends React.Component {
@@ -13,10 +13,10 @@ export default class UploadComponent extends React.Component {
     this.state = {
       title: '',
       desc: '',
-      imageName: '',
       image: '',
       imagePreviewUrl: '',
-      croppedData: ''
+      croppedData: '',
+      complete: false
     }
   }
 
@@ -34,7 +34,6 @@ export default class UploadComponent extends React.Component {
     reader.onloadend = () => {
       this.setState({
         image: file,
-        imageName: file.name,
         imagePreviewUrl: reader.result
       });
     }
@@ -54,12 +53,23 @@ export default class UploadComponent extends React.Component {
     this.refs.modal.hide();
   }
 
+  // toggleDisplay(complete) {
+  //   if (complete) {
+  //     return ({
+  //       display: none
+  //     });
+  //   } else {
+  //     return ({});
+  //   }
+  // }
+
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
 
     let formData = new FormData();
     let xhr = new XMLHttpRequest();
+    let self = this;
 
     formData.append('image[title]', this.state.title);
     formData.append('image[desc]', this.state.desc);
@@ -71,9 +81,12 @@ export default class UploadComponent extends React.Component {
     xhr.open('POST', '/images');
     xhr.onload = function() {
       if (xhr.status === 200) {
-        console.log('上传成功');
+        self.setState({
+          complete: true
+        })
+        console.log('upload success');
       } else {
-        console.log('出错了');
+        console.log('upload error');
       }
     };
     xhr.send(formData);
@@ -86,7 +99,8 @@ export default class UploadComponent extends React.Component {
   }
 
   render() {
-    const validForm = this.state.title && this.state.desc && this.state.imageName && this.state.croppedData;
+    const validForm = this.state.title && this.state.desc && this.state.imagePreviewUrl && this.state.croppedData;
+
     let styleObj = {};
     if (this.state.imagePreviewUrl) {
       styleObj = {
@@ -95,12 +109,19 @@ export default class UploadComponent extends React.Component {
       };
     }
 
+    let formContainerClassName = 'container';
+    let completeContainerClassName = 'complete-container';
+    if (this.state.complete) {
+      formContainerClassName += ' complete';
+      completeContainerClassName += ' complete';
+    }
+
     return (
       <div>
         <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' id='upload-button' />
         <Modal ref="modal" modalStyle={ modalStyle }>
-          <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
-          <div className="container">
+          <div className={ formContainerClassName }>
+            <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
             <form className="col s12" method="post" acceptCharset="UTF-8" encType='multipart/form-data' data-remote="true" onSubmit={ this.handleSubmit.bind(this) }>
               <div className="row">
                 <div className="input-field col s12">
@@ -129,6 +150,9 @@ export default class UploadComponent extends React.Component {
               <CropComponent _cropImage={ this._cropImage.bind(this) } img={ this.state.imagePreviewUrl } styleObj={ styleObj } />
             </div>
           </div>
+          <a className={ completeContainerClassName } href="/">
+            <FontAwesome name='check-circle-o' />
+          </a>
         </Modal>
       </div>
       );
