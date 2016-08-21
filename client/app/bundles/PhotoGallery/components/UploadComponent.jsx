@@ -14,10 +14,10 @@ export default class UploadComponent extends React.Component {
       title: '',
       desc: '',
       image: '',
+      imageName: '',
       imagePreviewUrl: '',
       croppedData: '',
-      complete: false,
-      progress: 0
+      progress: -1
     }
   }
 
@@ -35,6 +35,7 @@ export default class UploadComponent extends React.Component {
     reader.onloadend = () => {
       this.setState({
         image: file,
+        imageName: file.name,
         imagePreviewUrl: reader.result
       });
     }
@@ -69,6 +70,8 @@ export default class UploadComponent extends React.Component {
     if (this.state.croppedData) {
       formData.append('image[croppedData]', JSON.stringify(this.state.croppedData))
     }
+
+    this.setState
     xhr.open('POST', '/images');
     xhr.onload = function() {
       if (xhr.status === 200) {
@@ -80,6 +83,12 @@ export default class UploadComponent extends React.Component {
         console.log('upload error');
       }
     };
+
+    xhr.onloadstart = function() {
+      self.setState({
+        imageName: ''
+      })
+    }
 
     xhr.upload.onprogress = function(event) {
       if (event.lengthComputable) {
@@ -100,7 +109,7 @@ export default class UploadComponent extends React.Component {
   }
 
   render() {
-    const validForm = this.state.title && this.state.desc && this.state.imagePreviewUrl && this.state.croppedData;
+    const validForm = this.state.title && this.state.desc && this.state.imageName && this.state.croppedData;
 
     let styleObj = {};
     if (this.state.imagePreviewUrl) {
@@ -112,7 +121,7 @@ export default class UploadComponent extends React.Component {
 
     let formContainerClassName = 'container';
     let completeContainerClassName = 'complete-container';
-    if (this.state.complete) {
+    if (this.state.progress === 100) {
       formContainerClassName += ' complete';
       completeContainerClassName += ' complete';
     }
@@ -120,7 +129,7 @@ export default class UploadComponent extends React.Component {
     return (
       <div>
         <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' id='upload-button' />
-        <Modal ref="modal" modalStyle={ modalStyle }>
+        <Modal ref="modal" maxWidth='80%'>
           <div className={ formContainerClassName }>
             <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
             <form className="col s12" method="post" acceptCharset="UTF-8" encType='multipart/form-data' data-remote="true" onSubmit={ this.handleSubmit.bind(this) }>
@@ -142,12 +151,14 @@ export default class UploadComponent extends React.Component {
                     <input className="file-path validate" type="text" />
                   </div>
                 </div>
-                <div className="col s12">
+                <div className="col s6">
                   <button type='submit' className='submit btn waves-effect waves-light' name="action" title="Double click to crop image before Upload" disabled={ !validForm }>Upload</button>
+                </div>
+                <div className="col s6">
+                  <progress id="uploadprogress" min="0" max="100" value={ this.state.progress } />
                 </div>
               </div>
             </form>
-            <progress id="uploadprogress" min="0" max="100" value={ this.state.progress } />
             <div className='preview-img col s12'>
               <CropComponent _cropImage={ this._cropImage.bind(this) } img={ this.state.imagePreviewUrl } styleObj={ styleObj } />
             </div>
