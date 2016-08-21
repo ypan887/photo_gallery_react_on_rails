@@ -1,12 +1,12 @@
 class ImagesController < ApplicationController
   def index
-    random_images = Image.format_images(Image.limit(15).order("RANDOM()"))
+    random_images = Image.format_images(Image.limit(16).order("RANDOM()"))
     images_size = random_images.size
 
     if images_size <16
       @images_props = Image.default_images(16 - images_size).concat random_images
     else
-      @images_props = random_images.concat Image.format_images(Image.last)
+      @images_props = random_images.concat(Image.format_images(Image.last)).last(16)
     end
   end
 
