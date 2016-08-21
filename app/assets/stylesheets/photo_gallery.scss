@@ -229,6 +229,13 @@ visibility:visible;
 }
 
 /* Others -- end */
+.progress-bar {
+  display: none;
+  &.start {
+    display: inline-block;
+  }
+}
+
 
 .container{
   &.complete {

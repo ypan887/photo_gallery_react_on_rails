@@ -4,7 +4,7 @@ import FontAwesome from 'react-fontawesome';
 import CropComponent from '../components/CropComponent';
 
 let modalStyle = {
-  maxWidth: '80%'
+  minWidth: '60%'
 };
 
 export default class UploadComponent extends React.Component {
@@ -71,7 +71,10 @@ export default class UploadComponent extends React.Component {
       formData.append('image[croppedData]', JSON.stringify(this.state.croppedData))
     }
 
-    this.setState
+    this.setState({
+      progress: 0
+    })
+
     xhr.open('POST', '/images');
     xhr.onload = function() {
       if (xhr.status === 200) {
@@ -121,15 +124,21 @@ export default class UploadComponent extends React.Component {
 
     let formContainerClassName = 'container';
     let completeContainerClassName = 'complete-container';
+    let progressBarClassName = 'progress-bar';
+
     if (this.state.progress === 100) {
       formContainerClassName += ' complete';
       completeContainerClassName += ' complete';
     }
 
+    if (this.state.progress === 0) {
+      progressBarClassName += ' start';
+    }
+
     return (
       <div>
         <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' id='upload-button' />
-        <Modal ref="modal" maxWidth='80%'>
+        <Modal ref="modal" modalStyle={ modalStyle }>
           <div className={ formContainerClassName }>
             <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
             <form className="col s12" method="post" acceptCharset="UTF-8" encType='multipart/form-data' data-remote="true" onSubmit={ this.handleSubmit.bind(this) }>
@@ -155,7 +164,7 @@ export default class UploadComponent extends React.Component {
                   <button type='submit' className='submit btn waves-effect waves-light' name="action" title="Double click to crop image before Upload" disabled={ !validForm }>Upload</button>
                 </div>
                 <div className="col s6">
-                  <progress id="uploadprogress" min="0" max="100" value={ this.state.progress } />
+                  <progress className={ progressBarClassName } min="0" max="100" value={ this.state.progress } />
                 </div>
               </div>
             </form>
