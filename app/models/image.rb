@@ -1,13 +1,13 @@
 class Image < ApplicationRecord
   mount_uploader :image, ImageUploader
-  attr_accessor :crop_x, :crop_y, :crop_width, :crop_height
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
+  after_save :crop_image
 
   def self.default_images(image_number)
     images = (1..image_number).to_a
     images.map{|img| { "title": "Heaven of time",
-                                           "desc": "Here he comes Here comes Speed Racer.",
-                                           "url": "/assets/#{img}.jpg"
-                                     } }
+                       "desc": "Here he comes Here comes Speed Racer.",
+                       "url": "/assets/#{img}.jpg" } }
   end
 
   def self.format_images(images)
@@ -17,7 +17,11 @@ class Image < ApplicationRecord
   def set_crop_data(data)
     self.crop_x = data['x']
     self.crop_y = data['y']
-    self.crop_width = data['width']
-    self.crop_height = data['height']
+    self.crop_w = data['width']
+    self.crop_h = data['height']
+  end
+
+  def crop_image
+    image.recreate_versions! if crop_x.present?
   end
 end
