@@ -7,7 +7,7 @@ class Image < ApplicationRecord
     images = (1..image_number).to_a
     images.map{|img| { "title": "Heaven of time",
                        "desc": "Here he comes Here comes Speed Racer.",
-                       "url": "/assets/#{img}.jpg" } }
+                       "url": ActionController::Base.helpers.asset_path("#{img}.jpg") } }
   end
 
   def self.format_images(images)
