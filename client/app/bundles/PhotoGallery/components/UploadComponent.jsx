@@ -147,7 +147,9 @@ export default class UploadComponent extends React.Component {
 
     return (
       <div>
-        <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' id='upload-button' />
+        <div id='upload-button'>
+          <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' />
+        </div>
         <Modal ref="modal" modalStyle={ modalStyle }>
           <div className={ formContainerClassName }>
             <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />

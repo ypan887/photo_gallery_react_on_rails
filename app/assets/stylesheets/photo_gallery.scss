@@ -114,11 +114,15 @@ html, body {
   text-align: center;
 
   font-size: 2.5 em;
+  span{
+    cursor: pointer;
+  }
 }
 
 #close-button {
   margin: 20px;
   float: right;
+  cursor: pointer;
 }
 
 .modal {
