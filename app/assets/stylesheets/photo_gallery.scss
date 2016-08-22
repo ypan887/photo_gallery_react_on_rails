@@ -156,7 +156,7 @@ html, body {
 
 /* upload component -- end */
 
-/* controller -- start */
+/* Controller -- start */
 .controller-nav {
   position: absolute;
   left: 0;
@@ -210,32 +210,15 @@ html, body {
     }
   }
 }
-/* controller -- end */
+/* Controller -- end */
 
-/* Others -- start */
-btn.submit {
-  height: 3rem;
-}
-
-#wrapper .text {
-position:relative;
-bottom:30px;
-left:0px;
-visibility:hidden;
-}
-
-#wrapper:hover .text {
-visibility:visible;
-}
-
-/* Others -- end */
+/* Upload Process-- start */
 .progress-bar {
   display: none;
   &.start {
     display: inline-block;
   }
 }
-
 
 .container{
   &.complete {
@@ -254,9 +237,30 @@ visibility:visible;
   text-align: center;
   transform: scale(0);
   opacity: 0;
-  transition: transform .3s ease-in-out, opacity .6s ease-in-out;
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out;
 
   &.complete {
+    display: block;
+    transform: scale(1);
+    opacity: 1;
+    animation: anim .6s ease-in-out;
+  }
+}
+
+.error-container{
+  display: none;
+  line-height: 200px;
+  background: #FFCCCC;
+  border: 1px solid #444;
+  font-size: 10em;
+  width: 100%;
+  color: #F3FAFC;
+  text-align: center;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform .3s ease-in-out, opacity .3s ease-in-out;
+
+  &.error {
     display: block;
     transform: scale(1);
     opacity: 1;
@@ -279,3 +283,4 @@ visibility:visible;
     transform: scale(1);
   }
 }
+/* Upload Process-- end */

@@ -17,6 +17,7 @@ export default class UploadComponent extends React.Component {
       imageName: '',
       imagePreviewUrl: '',
       croppedData: '',
+      complete: '',
       progress: -1
     }
   }
@@ -41,7 +42,7 @@ export default class UploadComponent extends React.Component {
     }
 
     reader.onerror = (event) => {
-      console.error("File could not be read! Code " + event.target.error.code);
+      console.error('File could not be read! Code ' + event.target.error.code);
     }
 
     reader.readAsDataURL(file)
@@ -79,10 +80,13 @@ export default class UploadComponent extends React.Component {
     xhr.onload = function() {
       if (xhr.status === 200) {
         self.setState({
-          complete: true
+          complete: 'success'
         })
         console.log('upload success');
       } else {
+        self.setState({
+          complete: 'error'
+        })
         console.log('upload error');
       }
     };
@@ -125,10 +129,16 @@ export default class UploadComponent extends React.Component {
     let formContainerClassName = 'container';
     let completeContainerClassName = 'complete-container';
     let progressBarClassName = 'progress-bar';
+    let errorContainerClassName = 'error-container';
 
-    if (this.state.progress === 100) {
+    if (this.state.complete === 'success') {
       formContainerClassName += ' complete';
       completeContainerClassName += ' complete';
+    }
+
+    if (this.state.complete === 'error') {
+      formContainerClassName += ' complete';
+      errorContainerClassName += ' error'
     }
 
     if (this.state.progress === 0) {
@@ -174,6 +184,9 @@ export default class UploadComponent extends React.Component {
           </div>
           <a className={ completeContainerClassName } href="/">
             <FontAwesome name='check-circle-o' />
+          </a>
+          <a className={ errorContainerClassName } href="/">
+            <FontAwesome name='exclamation-circle' />
           </a>
         </Modal>
       </div>
