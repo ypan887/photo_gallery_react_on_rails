@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
     if images_size <16
       @images_props = Image.default_images(16 - images_size).concat random_images
     else
-      @images_props = random_images.concat(Image.format_images([Image.last])).last(16)
+      @images_props = Image.format_images([Image.last]).concat(random_images).first(16)
     end
   end
 
