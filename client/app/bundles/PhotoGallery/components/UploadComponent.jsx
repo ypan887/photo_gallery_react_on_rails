@@ -73,7 +73,7 @@ export default class UploadComponent extends React.Component {
     }
 
     this.setState({
-      progress: 0
+      complete: 'start'
     })
 
     xhr.open('POST', '/images');
@@ -99,7 +99,7 @@ export default class UploadComponent extends React.Component {
 
     xhr.upload.onprogress = function(event) {
       if (event.lengthComputable) {
-        let progressComplete = (event.loaded / event.total * 100 | 0);
+        let progressComplete = (event.loaded / event.total * 100 - 5 | 0);
         self.setState({
           progress: progressComplete
         })
@@ -141,7 +141,7 @@ export default class UploadComponent extends React.Component {
       errorContainerClassName += ' error'
     }
 
-    if (this.state.progress === 0) {
+    if (this.state.complete === 'start') {
       progressBarClassName += ' start';
     }
 
