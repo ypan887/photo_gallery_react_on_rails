@@ -1,14 +1,16 @@
 # Introduction
 
-
+This is an react on rails project. First, I followed this react tutorial repo but rewrite the code in ES6. Then I expended the project with upload components and refactor the structure. Up until this commit, the client side code structure still looks very much like the original one. I refactored following the container and presentational pattern.
 
 ## Features
 
 ### Todo
-- Refactor components. Some componets are too big.
 - Add User authentication
-- Sever responding to ajax upload request is slow, there should be room for improvements
+- Sever responding to ajax upload request is slow after I added the crop feature, there should be room for improvements
 - Add button to dispaly the original image
+- Although this is a simple project, but may be I can use it to learn redux? Just a thought, yet.
+
+I deployed a demo and upload all my babys pictures and they looks great as a gift.
 
 
 ### React on Rails
