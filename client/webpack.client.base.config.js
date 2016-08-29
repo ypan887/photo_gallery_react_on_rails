@@ -15,13 +15,14 @@ module.exports = {
     // See use of 'vendor' in the CommonsChunkPlugin inclusion below.
     vendor: [
       'babel-polyfill',
-      'jquery'
+      'jquery',
+      'react-redux'
     ],
 
     // This will contain the app entry points defined by webpack.hot.config and
     // webpack.rails.config
     app: [
-      './app/bundles/PhotoGallery/startup/clientRegistration'
+      './app/bundles/startup/clientRegistration'
     ]
   },
   resolve: {
