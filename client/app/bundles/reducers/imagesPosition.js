@@ -1,8 +1,6 @@
 import { combineReducers } from 'redux'
 
-import {
-  ARRANGE
-} from '../constants/ActionTypes'
+import { ARRANGE, INVERSE } from '../constants/ActionTypes'
 
 const initialState = Array(16).fill('');
 
@@ -24,7 +22,6 @@ function rearrange(state, centerIndex, posConstant) {
   const halfStageW = Math.ceil(stageW / 2);
   const halfStageH = Math.ceil(stageH / 2);
 
-  debugger;
   let vPosRange = {
     x: [0, 0],
     topY: [0, 0]
@@ -130,6 +127,10 @@ const imagesPosition = (state= initialState, action) => {
   switch (action.type) {
     case ARRANGE:
       return Object.assign([], state, rearrange(state, action.centerIndex, action.posConstant))
+    case INVERSE:
+      return state.map( (image, index) =>
+                        index === action.index ?
+                          Object.assign({}, image, { isInverse: !image.isInverse}) : image)
     default:
       return state
   }

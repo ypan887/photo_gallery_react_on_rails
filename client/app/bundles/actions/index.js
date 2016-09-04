@@ -7,3 +7,10 @@ export function arrange(centerIndex, posConstant) {
     posConstant: posConstant
   }
 }
+
+export function inverse(index) {
+  return {
+    type: types.INVERSE,
+    index: index
+  }
+}
