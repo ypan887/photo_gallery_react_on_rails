@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import counter from './counter'
+import imagesPosition from './imagesPosition'
 
 const PhotoGalleryApp = combineReducers({
-  counter
+  imagesPosition
 })
 
 export default PhotoGalleryApp

@@ -1,9 +1,9 @@
 import React from 'react'
 import PhotoGalleryContainer from './PhotoGalleryContainer'
 
-const App = () => (
+const App = (props) => (
   <div>
-    <PhotoGalleryContainer />
+    <PhotoGalleryContainer {...props}/>
   </div>
 )
 

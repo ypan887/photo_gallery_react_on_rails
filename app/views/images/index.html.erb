@@ -1,4 +1,5 @@
-<%= redux_store("appStore", props: { images: @images_props } ) %>;
+<%= redux_store("appStore") %>;
 <%= react_component("PhotoGalleryApp",
-                     prerender: false,
-                     html_options: { class: 'photo-gallery'}) %>
+                    props: { images: @images_props },
+                    prerender: false,
+                    html_options: { class: 'photo-gallery'}) %>
