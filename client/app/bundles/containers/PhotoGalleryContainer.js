@@ -30,15 +30,17 @@ class PhotoGalleryContainer extends React.Component {
     this.props.arrangePics(0, this.posConstant);
   }
 
-  center(index) {
-    return () => {
-      this.props.arrangePics(index, this.posConstant);
-    }
-  }
+  handleClick(index) {
+    return (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const imagePosition = this.props.imagesPosition[index];
 
-  inverse(index) {
-    return () => {
-      this.props.inversePics(index);
+      if (imagePosition.isCenter) {
+        this.props.inversePics(index);
+      } else {
+        this.props.arrangePics(index, this.posConstant);
+      }
     }
   }
 
@@ -77,16 +79,12 @@ class PhotoGalleryContainer extends React.Component {
       imgFigures.push(<ImageFigureWidget data={ value }
                                          key={ index }
                                          styleObj={ styleObj }
-                                         arrange= { imagePosition }
-                                         inverse={ this.inverse(index) }
-                                         center={ this.center(index) }
+                                         handleClick= { this.handleClick(index).bind(this)}
                                          imgFigureClassName={ imgFigureClassName }
                                          ref={ 'imgFigure' + index } />);
 
       controllerUnits.push(<ControllerUnitWidget key={ index }
-                                                 arrange= { imagePosition }
-                                                 inverse={ this.inverse(index) }
-                                                 center={ this.center(index) }
+                                                 handleClick= { this.handleClick(index).bind(this)}
                                                  controllerUnitClassName={ controllerUnitClassName } />);
     });
 

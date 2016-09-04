@@ -1,5 +1,3 @@
-import { combineReducers } from 'redux'
-
 import { ARRANGE, INVERSE } from '../constants/ActionTypes'
 
 const initialState = Array(16).fill('');
