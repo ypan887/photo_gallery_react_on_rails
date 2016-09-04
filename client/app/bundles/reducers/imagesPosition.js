@@ -112,17 +112,6 @@ function rearrange(state, centerIndex, posConstant) {
   return imgsArrangeArr;
 }
 
-/*
-const image = (state, action) => {
-  switch (action.type) {
-    case ARRANGE:
-      return Object.assign({}, state, rearrange(action.centerIndex))
-    default:
-      return state
-  }
-}
-*/
-
 const imagesPosition = (state= initialState, action) => {
   switch (action.type) {
     case ARRANGE:
