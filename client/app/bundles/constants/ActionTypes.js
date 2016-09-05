@@ -1,2 +1,5 @@
 export const ARRANGE = 'ARRANGE'
 export const INVERSE = 'INVERSE'
+export const GETINPUT = 'GETINPUT'
+export const GETIMAGE = 'GETIMAGE'
+export const CROPIMAGE = 'CROPIMAGE'

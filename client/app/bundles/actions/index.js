@@ -14,3 +14,24 @@ export function inverse(index) {
     index: index
   }
 }
+
+export function getInput(input) {
+  return {
+    type: types.GETINPUT,
+    input: input
+  }
+}
+
+export function getImage(image) {
+  return {
+    type: types.GETIMAGE,
+    image: image
+  }
+}
+
+export function cropImage(croppedData) {
+  return {
+    type: types.CROPIMAGE,
+    croppedData: croppedData
+  }
+}
