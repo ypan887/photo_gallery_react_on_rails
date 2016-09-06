@@ -1,6 +1,12 @@
-import { createStore } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
+import ReduxThunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import reducer from '../reducers/index'
 
 export default () => {
-  return createStore(reducer, window.devToolsExtension && window.devToolsExtension());
+  const logger = createLogger();
+  const composedStore = compose(
+    applyMiddleware(ReduxThunk, logger)
+  );
+  return composedStore(createStore)(reducer, window.devToolsExtension && window.devToolsExtension());
 };

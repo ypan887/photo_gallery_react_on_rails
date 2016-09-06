@@ -1,25 +1,34 @@
 import { combineReducers } from 'redux'
-import { GETINPUT, GETIMAGE, CROPIMAGE} from '../constants/ActionTypes'
+import {
+  GETINPUT,
+  GETIMAGE,
+  CROPIMAGE,
+  INITIALPROGRESSBAR,
+  COMPLETEPROGRESSBAR,
+  ERRORPROGRESSBAR,
+  SETPROGRESS,
+  EMPTYINPUT
+} from '../constants/ActionTypes'
 
 const initialInput = {
       title: '',
       desc: ''
     }
+
 const initialImage = {
   image: '',
   imageName: '',
   imagePreviewUrl: ''
 }
+
 const initialCrop = { croppedData: '' }
-const initialUpload = {
-  complete: '',
-  progress: -1
-}
 
 function input(state = initialInput, action) {
   switch (action.type) {
     case GETINPUT:
       return Object.assign({}, state, action.input)
+    case EMPTYINPUT:
+      return initialInput
     default:
       return state
   }
@@ -43,8 +52,32 @@ function crop(state = initialCrop, action) {
   }
 }
 
+function complete(state = '', action) {
+  switch(action.type) {
+    case INITIALPROGRESSBAR:
+      return 'start'
+    case COMPLETEPROGRESSBAR:
+      return 'success'
+    case ERRORPROGRESSBAR:
+      return 'error'
+    default:
+      return state
+  }
+}
+
+function progress(state = -1, action) {
+  switch(action.type) {
+    case SETPROGRESS:
+      return action.progressComplete
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   input,
   image,
-  crop
+  crop,
+  complete,
+  progress
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome';
+import ReactOnRails from 'react-on-rails';
 
 export default class UploadWidget extends React.Component {
 
@@ -32,58 +32,17 @@ export default class UploadWidget extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     e.stopPropagation();
-
-  //   let formData = new FormData();
-  //   let xhr = new XMLHttpRequest();
-  //   let self = this;
-
-  //   formData.append('image[title]', this.props.title);
-  //   formData.append('image[desc]', this.props.desc);
-  //   formData.append('image[image]', this.props.image);
-  //   formData.append('authenticity_token', this.props.csrfToken)
-  //   if (this.props.croppedData) {
-  //     formData.append('image[croppedData]', JSON.stringify(this.props.croppedData))
-  //   }
-
-  //   this.setState({
-  //     complete: 'start'
-  //   })
-
-  //   xhr.open('POST', '/images');
-  //   xhr.onload = function() {
-  //     if (xhr.status === 200) {
-  //       self.setState({
-  //         complete: 'success'
-  //       })
-  //       console.log('upload success');
-  //     } else {
-  //       self.setState({
-  //         complete: 'error'
-  //       })
-  //       console.log('upload error');
-  //     }
-  //   };
-
-  //   xhr.onloadstart = function() {
-  //     self.setState({
-  //       imageName: ''
-  //     })
-  //   }
-
-  //   xhr.upload.onprogress = function(event) {
-  //     if (event.lengthComputable) {
-  //       let progressComplete = (event.loaded / event.total * 100 - 5 | 0);
-  //       self.setState({
-  //         progress: progressComplete
-  //       })
-  //     }
-  //   };
-
-  //   xhr.send(formData);
+    const csrfToken = ReactOnRails.authenticityToken();
+    this.props.postUpload(csrfToken);
   }
 
   render() {
-    const { title, desc, validForm } = this.props;
+    debugger;
+    const { title,
+            desc,
+            validForm,
+            progress,
+            progressBarClassName } = this.props;
 
     return (
       <form className="col s12" method="post" acceptCharset="UTF-8" encType='multipart/form-data' data-remote="true" onSubmit={ this.handleSubmit.bind(this) }>
@@ -107,6 +66,9 @@ export default class UploadWidget extends React.Component {
           </div>
           <div className="col s6">
             <button type='submit' className='submit btn waves-effect waves-light' name="action" title="Double click to crop image before Upload" disabled={ !validForm }>Upload</button>
+          </div>
+          <div className="col s6">
+            <progress className={ progressBarClassName } min="0" max="100" value={ progress } />
           </div>
         </div>
       </form>

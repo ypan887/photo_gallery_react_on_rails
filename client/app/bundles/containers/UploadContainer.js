@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Modal from 'boron/DropModal'
 import FontAwesome from 'react-fontawesome';
-import { getInput, getImage, cropImage } from '../actions'
+import { getInput, getImage, cropImage, postUpload } from '../actions'
 import UploadWidget from '../components/UploadWidget'
 import CropComponent from '../components/CropComponent'
 
@@ -24,7 +24,7 @@ class UploadContainer extends React.Component {
   }
 
   render() {
-    const { input, image, crop } = this.props.uploadImage
+    const { input, image, crop, complete} = this.props.uploadImage
     const validForm = input.title && input.desc && image.imageName && crop.croppedData;
 
     let styleObj = {};
@@ -40,31 +40,40 @@ class UploadContainer extends React.Component {
     let progressBarClassName = 'progress-bar';
     let errorContainerClassName = 'error-container';
 
-    if (this.props.complete === 'success') {
+    if (complete === 'success') {
       formContainerClassName += ' complete';
       completeContainerClassName += ' complete';
     }
 
-    if (this.props.complete === 'error') {
+    if (complete === 'error') {
       formContainerClassName += ' complete';
       errorContainerClassName += ' error'
     }
 
-    if (this.props.complete === 'start') {
+    if (complete === 'start') {
       progressBarClassName += ' start';
     }
 
     return (
       <div>
         <div id='upload-button'>
-          <FontAwesome onClick={ this.showModal.bind(this) } name='plus-circle' size='3x' />
+          <FontAwesome onClick={ this.showModal.bind(this) }
+                       name='plus-circle'
+                       size='3x' />
         </div>
         <Modal ref="modal" modalStyle={ modalStyle }>
           <div className={ formContainerClassName }>
-            <FontAwesome onClick={ this.hideModal.bind(this) } name='times' size='2x' id='close-button' />
-            <UploadWidget { ...this.props } validForm={ validForm }/>
+            <FontAwesome onClick={ this.hideModal.bind(this) }
+                         name='times'
+                         size='2x'
+                         id='close-button' />
+            <UploadWidget { ...this.props }
+                          validForm={ validForm }
+                          progressBarClassName={ progressBarClassName } />
             <div className='preview-img col s12'>
-              <CropComponent _cropImage={ this._cropImage.bind(this) } img={ image.imagePreviewUrl } styleObj={ styleObj } />
+              <CropComponent _cropImage={ this._cropImage.bind(this) }
+                             img={ image.imagePreviewUrl }
+                             styleObj={ styleObj } />
             </div>
           </div>
           <a className={ completeContainerClassName } href="/">
@@ -95,6 +104,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     cropImage: (croppedData) => {
       dispatch(cropImage(croppedData))
+    },
+    postUpload: () => {
+      dispatch(postUpload())
     }
   }
 }
