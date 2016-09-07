@@ -1,4 +1,5 @@
 import * as types from '../constants/ActionTypes'
+import ReactOnRails from 'react-on-rails';
 
 export function arrange(centerIndex, posConstant) {
   return {
@@ -67,7 +68,7 @@ export function setProgress(progressComplete) {
   }
 }
 
-export function postUpload(csrfToken) {
+export function postUpload() {
   return (dispatch, getState) => {
     const { input, image, crop } = getState().uploadImage
     const validForm = input.title && input.desc && image.imageName && crop.croppedData;
@@ -77,6 +78,7 @@ export function postUpload(csrfToken) {
     }
 
     let formData = new FormData();
+    const csrfToken = ReactOnRails.authenticityToken();
     formData.append('image[title]', input.title);
     formData.append('image[desc]', input.desc);
     formData.append('image[image]', image.image);
@@ -95,10 +97,8 @@ export function sendUpload(dispatch, formData) {
   xhr.onload = () => {
     if (xhr.status === 200) {
       dispatch(completeProgressBar());
-      console.log('upload success');
     } else {
       dispatch(errorProgressBar());
-      console.log('upload error');
     }
   };
 
@@ -107,10 +107,8 @@ export function sendUpload(dispatch, formData) {
   }
 
   xhr.upload.onprogress = (event)=> {
-    if (event.lengthComputable) {
-      let progressComplete = (event.loaded / event.total * 100 - 5 | 0);
-      dispatch(setProgress(progressComplete));
-    }
+    let progressComplete = event.lengthComputable ? event.loaded / event.total * 100 - 5 : 0;
+    dispatch(setProgress(progressComplete));
   };
 
   xhr.send(formData);
