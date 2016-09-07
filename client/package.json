@@ -37,7 +37,7 @@
     "react-cropper": "^0.8.0",
     "react-dom": "^0.14.8 || ^15.0.0",
     "react-fontawesome": "^1.1.0",
-    "react-on-rails": "5.2.0",
+    "react-on-rails": "^6.1.0",
     "react-redux": "^4.4.5",
     "redux": "^3.5.2",
     "redux-logger": "^2.6.1",
