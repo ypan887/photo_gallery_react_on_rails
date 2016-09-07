@@ -43,14 +43,10 @@ class UploadContainer extends React.Component {
     if (complete === 'success') {
       formContainerClassName += ' complete';
       completeContainerClassName += ' complete';
-    }
-
-    if (complete === 'error') {
+    } else if (complete === 'error') {
       formContainerClassName += ' complete';
       errorContainerClassName += ' error'
-    }
-
-    if (complete === 'start') {
+    } else if (complete === 'start') {
       progressBarClassName += ' start';
     }
 
@@ -69,7 +65,8 @@ class UploadContainer extends React.Component {
                          id='close-button' />
             <UploadWidget { ...this.props }
                           validForm={ validForm }
-                          progressBarClassName={ progressBarClassName } />
+                          progressBarClassName={ progressBarClassName }
+                          />
             <div className='preview-img col s12'>
               <CropComponent _cropImage={ this._cropImage.bind(this) }
                              img={ image.imagePreviewUrl }
